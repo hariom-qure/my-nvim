@@ -1,0 +1,2 @@
+# My custom NvChad configuration
+
