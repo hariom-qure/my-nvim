@@ -1,12 +1,14 @@
 ---@type ChadrcConfig
 local M = {}
 
+-- require("neodev").setup {}
+
 -- Path to overriding theme and highlights files
 local highlights = require "custom.highlights"
 
 M.ui = {
   theme = "palenight",
-  theme_toggle = { "palenight", "palenight" },
+  theme_toggle = { "one_light", "palenight" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,

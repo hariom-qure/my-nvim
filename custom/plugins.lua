@@ -1,5 +1,18 @@
 local overrides = require("custom.configs.overrides")
 
+-- local function pretty_table(tbl)
+--   local result = ""
+--   for index, data in ipairs(tbl) do
+--     result = result .. tostring(index)
+--
+--
+--     for key, value in pairs(data) do
+--       result = result .. "\t" .. tostring(key) .. tostring(value)
+--     end
+--   end
+--   return result
+-- end
+
 ---@type NvPluginSpec[]
 local plugins = {
 
@@ -50,34 +63,81 @@ local plugins = {
 	},
 	{
 		"tpope/vim-surround",
-		event = "VeryLazy",
+		event = "BufEnter *",
 	},
 
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-	-- {
-	-- 	"f-person/auto-dark-mode.nvim",
-	-- 	config = {
-	-- 		update_interval = 1000,
-	-- 		set_dark_mode = function()
-	-- 			-- vim.api.nvim_set_option("background", "dark")
- --        vim.g.nvchad_theme = "palenight"
- --        require("base46").load_all_highlights()
- --        vim.api.nvim_exec_autocmds("User", { pattern = "NvChadThemeReload" })
-	-- 		end,
-	-- 		set_light_mode = function()
- --        -- vim.api.nvim_set_option("background", "light")
- --        vim.g.nvchad_theme = "one_light"
- --        require("base46").load_all_highlights()
- --        vim.api.nvim_exec_autocmds("User", { pattern = "NvChadThemeReload" })
-	-- 		end,
-	-- 	},
-	-- 	init = function()
-	-- 		require("auto-dark-mode").init()
-	-- 	end,
-	-- },
+
+  -- dap
+  {
+    "mfussenegger/nvim-dap",
+    event = "VeryLazy",
+    config = function ()
+      require("custom.configs.dap").setup()
+    end
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    event = "VeryLazy",
+    dependencies = { "mfussenegger/nvim-dap" },
+    opts = {}
+  },
+  {
+    "Weissle/persistent-breakpoints.nvim",
+    event = "VeryLazy",
+    dependencies = { "mfussenegger/nvim-dap" },
+    opts = {
+      load_breakpoints_event = { "BufReadPost" }
+    },
+  },
+  {
+    'mfussenegger/nvim-dap-python',
+    dependencies = { "mfussenegger/nvim-dap" },
+    event = "BufRead *.py",
+    config = function()
+      require('dap-python').setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+      local dap = require("dap")
+      local project_specific = require("custom.utils").get_dap_configuration("python")
+      if project_specific then
+        dap.configurations.python = vim.tbl_deep_extend(
+          "force",
+          dap.configurations.python,
+          project_specific
+        )
+      end
+    end
+  },
+
+  -- tests plugins
+  {
+    "nvim-neotest/neotest-python",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-neotest/neotest-python",
+    },
+    event = "BufRead *",
+    config = function()
+      local python_conf = require("custom.utils").get_neotest_configuration("python")
+      if python_conf then
+        require("neotest").setup {
+          adapters = {
+            require("neotest-python")(python_conf),
+          }
+        }
+      end
+    end
+  }
 }
 
 return plugins

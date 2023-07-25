@@ -1,45 +1,16 @@
 local M = {}
 
+local py_configs = require("custom.configs.python")
+
 M.treesitter = {
-  ensure_installed = {
-    "vim",
-    "lua",
-    "html",
-    "css",
-    "javascript",
-    "typescript",
-    "tsx",
-    "c",
-    "markdown",
-    "markdown_inline",
-    "python",
-  },
+  ensure_installed = py_configs.treesitter.ensure_installed,
   indent = {
     enable = true,
   },
 }
 
 M.mason = {
-  ensure_installed = {
-    -- lua stuff
-    "lua-language-server",
-    "stylua",
-
-    -- web dev stuff
-    "css-lsp",
-    "html-lsp",
-    "typescript-language-server",
-    "deno",
-    "prettier",
-
-    -- c/cpp stuff
-    "clangd",
-    "clang-format",
-
-    -- python
-    "pyright",
-    "black",
-  },
+  ensure_installed = py_configs.mason.ensure_installed,
 }
 
 -- git support in nvimtree
