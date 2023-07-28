@@ -102,11 +102,7 @@ local plugins = {
       local dap = require("dap")
       local project_specific = require("custom.utils").get_dap_configuration("python")
       if project_specific then
-        dap.configurations.python = vim.tbl_deep_extend(
-          "force",
-          dap.configurations.python,
-          project_specific
-        )
+        vim.list_extend(dap.configurations.python, project_specific)
       end
     end
   },
