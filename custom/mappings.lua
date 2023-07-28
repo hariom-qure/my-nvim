@@ -9,6 +9,10 @@ M.general = {
     ["<M-_>"] = { ":resize -2<cr>", "decrease window size vertically" },
     ["<M-=>"] = { ":vertical resize +2<cr>", "increase window size" },
     ["<M-->"] = { ":vertical resize -2<cr>", "decrease window size" },
+    ["]q"] = { ":cnext<cr>", "quickfix list: next"},
+    ["[q"] = { ":cprev<cr>", "quickfix list: previous"},
+    ["]b"] = { ":bnext<cr>", "buffer list: previous"},
+    ["[b"] = { ":bprev<cr>", "buffer list: previous"},
   },
 }
 

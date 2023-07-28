@@ -111,33 +111,13 @@ local plugins = {
     end
   },
 
-  -- tests plugins
   {
-    "nvim-neotest/neotest-python",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-  },
-  {
-    "nvim-neotest/neotest",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-neotest/neotest-python",
-    },
-    event = "BufRead *",
+    "nvim-telescope/telescope-live-grep-args.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
-      local python_conf = require("custom.utils").get_neotest_configuration("python")
-      if python_conf then
-        require("neotest").setup {
-          adapters = {
-            require("neotest-python")(python_conf),
-          }
-        }
-      end
+      require("telescope").load_extension("live_grep_args")
     end
-  }
+  },
 }
 
 return plugins
