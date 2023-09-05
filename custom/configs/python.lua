@@ -11,40 +11,67 @@ M.mason = {
   ensure_installed = {
     "pyright",
     "black",
-    "debugpy",
+    "debugpy@1.6.7",
     "pylint",
-    "mypy",
   },
 }
 
--- LSP
-require("lspconfig").pyright.setup {
-  on_attach = require("plugins.configs.lspconfig").on_attach,
-  capabilities = require("plugins.configs.lspconfig").capabilities,
-  settings = {
-    python = {
-      analysis = {
-        diagnosticSeverityOverrides = {
-          reportTypedDictNotRequiredAccess = "none"
-        }
-      }
-    }
-  }
-}
-
-
 M.null_ls = {
-  sources = function ()
-    local present, null_ls = pcall(require, "null-ls")
-    if not present then
-      return M
-    end
+  sources = function (null_ls)
     local b = null_ls.builtins
     return {
       b.formatting.black,
     }
   end
 }
+
+M.setup_lsp = function(on_attach, capabilities)
+  require("lspconfig").pyright.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      python = {
+        analysis = {
+          diagnosticSeverityOverrides = {
+            reportTypedDictNotRequiredAccess = "none"
+          }
+        }
+      }
+    }
+  }
+end
+
+M.plugs = function()
+  return {
+    {
+      'mfussenegger/nvim-dap-python',
+      dependencies = { "mfussenegger/nvim-dap" },
+      event = "BufRead *.py",
+      config = function()
+        require('dap-python').setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+        local dap = require("dap")
+        local project_specific = require("custom.utils").get_dap_configuration("python")
+        if project_specific then
+          vim.list_extend(dap.configurations.python, project_specific)
+        end
+      end
+    },
+  }
+end
+
+M.neotest_adapter = function()
+  local ok, mod = pcall(require, "neotest-python")
+  if not ok then
+    return nil
+  else
+    local project_specific = require("custom.utils").get_neotest_configuration("python")
+    local params = {}
+    if project_specific then
+      params = project_specific
+    end
+    return mod(params)
+  end
+end
 
 return M
 

@@ -8,7 +8,7 @@ local highlights = require "custom.highlights"
 
 M.ui = {
   theme = "palenight",
-  theme_toggle = { "one_light", "palenight" },
+  theme_toggle = { "palenight", "palenight" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,

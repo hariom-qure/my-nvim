@@ -1,16 +1,28 @@
 local M = {}
 
-local py_configs = require("custom.configs.python")
+local all_configs = require("custom.configs.all_configs")
+
+
+local function extended_ensured_installed_inside_table(plug)
+  local dest = {}
+
+  for _, config in pairs(all_configs) do
+    local plug_conf = config[plug] or {}
+    local ensure_installed_table = plug_conf["ensure_installed"] or {}
+    vim.list_extend(dest, ensure_installed_table)
+  end
+  return dest
+end
 
 M.treesitter = {
-  ensure_installed = py_configs.treesitter.ensure_installed,
+  ensure_installed = extended_ensured_installed_inside_table("treesitter"),
   indent = {
     enable = true,
   },
 }
 
 M.mason = {
-  ensure_installed = py_configs.mason.ensure_installed,
+  ensure_installed = extended_ensured_installed_inside_table("mason"),
 }
 
 -- git support in nvimtree

@@ -39,7 +39,4 @@ M.keymaps = {
   }
 }
 
-M.setup_neotest = function()
-end
-
 return M

@@ -13,16 +13,10 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-lspconfig.pyright.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    python = {
-      analysis = {
-        diagnosticSeverityOverrides = {
-          reportTypedDictNotRequiredAccess = "none"
-        }
-      }
-    }
-  }
-}
+for _, conf in ipairs(require("custom.configs.all_configs")) do
+  local fn = conf.setup_lsp
+  if fn ~= nil then
+    fn(on_attach, capabilities)
+  end
+end
+

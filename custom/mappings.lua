@@ -5,18 +5,20 @@ M.general = {
   n = {
     ["<CR>"] = { "za", "toggle fold" },
     ["<leader>sr"] = { ":e ~/.scratchpad<CR>", "open scratchpad" },
+    -- window resizing
     ["<M-+>"] = { ":resize +2<cr>", "increase window size vertically" },
     ["<M-_>"] = { ":resize -2<cr>", "decrease window size vertically" },
     ["<M-=>"] = { ":vertical resize +2<cr>", "increase window size" },
     ["<M-->"] = { ":vertical resize -2<cr>", "decrease window size" },
+    -- list moving
     ["]q"] = { ":cnext<cr>", "quickfix list: next"},
     ["[q"] = { ":cprev<cr>", "quickfix list: previous"},
     ["]b"] = { ":bnext<cr>", "buffer list: previous"},
     ["[b"] = { ":bprev<cr>", "buffer list: previous"},
+
+    ["<M-k>"] = { ":lua vim.diagnostic.open_float()<CR>", "show diagnostics"},
   },
 }
-
--- more keybinds!
 
 M.telescope = {
   n = {
@@ -27,16 +29,15 @@ M.telescope = {
   }
 }
 
--- M.dap = {
---   n = {
---     ["<leader>dc"] = { ":DapContinue<cr>", "continue debugger" },
---     ["<leader>dt"] = { ":DapToggleBreakpoint<cr>", "toggle breakpoint" },
---     ["<leader>dso"] = { ":DapStepOver<cr>", "debugger: step over" },
---     ["<leader>dsi"] = { ":DapStepInto<cr>", "debugger: step into" },
---     ["<leader>dT"] = { ":DapTerminate<cr>", "debugger: step into" },
---   }
--- }
---
+M.neotest = {
+  n = {
+    ["<leader>nt"] = { "<cmd>lua require('neotest').run.run()<cr>", "Run nearest test" },
+    ["<leader>nT"] = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run nearest test" },
+    ["<leader>ns"] = { "<cmd>lua require('neotest').summary.open()<cr>", "Run nearest test" },
+    ["<leader>no"] = { "<cmd>lua require('neotest').output.open({enter = true})<cr>", "Run nearest test" },
+  }
+}
+
 M.dap = require("custom.configs.dap").keymaps
 
 return M
