@@ -18,6 +18,9 @@ M.general = {
 
     ["<M-k>"] = { ":lua vim.diagnostic.open_float()<CR>", "show diagnostics"},
   },
+  t = {
+    ["<C-[>"] = { "<C-\\><C-n>", "escape from terminal" },
+  }
 }
 
 M.telescope = {
