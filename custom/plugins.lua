@@ -140,7 +140,11 @@ local plugins = {
         }
       }
     end
-  }
+  },
+  {
+    "sindrets/diffview.nvim",
+    lazy = false,
+  },
 }
 
 local function required_lang_plugs()

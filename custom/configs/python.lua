@@ -11,7 +11,7 @@ M.mason = {
   ensure_installed = {
     "pyright",
     "black",
-    "debugpy@1.6.7",
+    "debugpy",
     "pylint",
   },
 }
@@ -48,6 +48,7 @@ M.plugs = function()
       dependencies = { "mfussenegger/nvim-dap" },
       event = "BufRead *.py",
       config = function()
+        -- require('dap-python').setup()
         require('dap-python').setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
         local dap = require("dap")
         local project_specific = require("custom.utils").get_dap_configuration("python")
