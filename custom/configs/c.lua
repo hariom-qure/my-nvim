@@ -16,8 +16,7 @@ M.mason = {
 
 M.null_ls = {
   sources = function (null_ls)
-    return {
-    }
+    return {}
   end
 }
 

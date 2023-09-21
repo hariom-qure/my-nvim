@@ -4,6 +4,7 @@ local M = {
   require("custom.configs.json"),
   require("custom.configs.c"),
   require("custom.configs.ts"),
+  require("custom.configs.bash"),
 }
 
 return M
