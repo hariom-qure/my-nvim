@@ -29,15 +29,17 @@ M.telescope = {
     ["gr"] = { "<cmd> Telescope lsp_references <CR>", "Find references" },
     ["<C-p>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<C-S-f>"] = { "<cmd> Telescope live_grep <CR>", "Find text" },
+    ["<leader>fg"] = { ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>" },
   }
 }
 
 M.neotest = {
   n = {
     ["<leader>nt"] = { "<cmd>lua require('neotest').run.run()<cr>", "Run nearest test" },
+    ["<leader>nd"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Run nearest test in dap" },
     ["<leader>nT"] = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run nearest test" },
-    ["<leader>ns"] = { "<cmd>lua require('neotest').summary.open()<cr>", "Run nearest test" },
-    ["<leader>no"] = { "<cmd>lua require('neotest').output.open({enter = true})<cr>", "Run nearest test" },
+    ["<leader>ns"] = { "<cmd>lua require('neotest').summary.open()<cr>", "Summary of nearest test" },
+    ["<leader>no"] = { "<cmd>lua require('neotest').output.open({enter = true})<cr>", "output of nearest test" },
   }
 }
 
