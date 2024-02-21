@@ -5,6 +5,7 @@ local M = {
   require("custom.configs.c"),
   require("custom.configs.ts"),
   require("custom.configs.bash"),
+  require("custom.configs.rust"),
 }
 
 return M

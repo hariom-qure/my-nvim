@@ -1,16 +1,6 @@
 local overrides = require("custom.configs.overrides")
 local all_configs = require("custom.configs.all_configs")
 
-local function get_neotest_params()
-  local dest = {}
-  for _, conf in pairs(all_configs) do
-    local adapter = conf["neotest_adapter"]
-    if adapter ~= nil then
-      vim.list_extend(dest, conf.plugs())
-    end
-  end
-  return dest
-end
 
 ---@type NvPluginSpec[]
 local plugins = {
