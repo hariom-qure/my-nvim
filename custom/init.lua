@@ -5,6 +5,8 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 99
 opt.exrc = true
+opt.termguicolors = true
+opt.colorcolumn = "88"
 
 autocmd(
   {"BufWinEnter"},

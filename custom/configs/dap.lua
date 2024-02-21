@@ -30,10 +30,13 @@ end
 M.keymaps = {
   n = {
     ["<M-S-j>"] = { function() require("dap").continue() end, "continue debugger" },
+    ["<M-S-l>"] = { function() require("dap").continue() end, "run last session" },
     ["<M-b>"] = { function() require("dap").toggle_breakpoint() end, "toggle breakpoint" },
+    ["<M-S-b>"] = { ":lua require('dap').toggle_breakpoint(", "custom toggle breakpoint" },
     ["<M-j>"] = { function() require("dap").step_over() end, "debugger: step over" },
     ["<M-l>"] = { function() require("dap").step_into() end, "debugger: step into" },
     ["<M-r>"] = { function() require('dap').repl.toggle() end, "debugger: toggle repl" },
+    ['<Leader>lp'] = { function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, "log point" },
     ["<M-w>"] = { watch_widget_toggle, "debugger: toggle watch window"},
     ["<M-S-t>"] = { function() require("dap").terminate() end, "debugger: terminate session" },
   }

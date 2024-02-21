@@ -109,6 +109,10 @@ local plugins = {
     event = "BufEnter *",
   },
   {
+    "nvim-neotest/neotest-python",
+    event = "BufEnter *.py",
+  },
+  {
     "nvim-neotest/neotest-vim-test",
     event = "BufEnter *",
     dependencies = "vim-test/vim-test"
@@ -120,13 +124,15 @@ local plugins = {
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
       "vim-test/vim-test",
-      "nvim-neotest/neotest-vim-test"
+      "nvim-neotest/neotest-python",
+      -- "nvim-neotest/neotest-vim-test",
     },
     event = "BufEnter *",
     config = function()
       require("neotest").setup {
         adapters = {
-           require("neotest-vim-test")({ allow_file_types = { "python" } }),
+          require("neotest-python"),
+           -- require("neotest-vim-test")({ allow_file_types = { "python" } }),
         }
       }
     end
@@ -134,6 +140,12 @@ local plugins = {
   {
     "sindrets/diffview.nvim",
     lazy = false,
+  },
+  {
+    'nvim-pack/nvim-spectre' ,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
   },
 }
 
