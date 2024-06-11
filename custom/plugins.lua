@@ -31,6 +31,22 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "syntax")
+      require("nvim-treesitter.configs").setup(opts)
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+      parser_config.authzed = {
+        install_info = {
+          url = "https://github.com/mleonidas/tree-sitter-authzed", -- local path or git repo
+          files = { "src/parser.c" },
+          generate_requires_npm = false,
+          requires_generate_from_grammar = false,
+          -- optional entries:
+          branch = "main", -- default branch in case of git repo if different from master
+        },
+        filetype = "authzed", -- if filetype does not match the parser name
+      }
+    end,
   },
 
   {
@@ -42,6 +58,25 @@ local plugins = {
   {
     "folke/which-key.nvim",
     enabled = false,
+  },
+  {
+    "NvChad/nvterm",
+    enabled = false,
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("toggleterm").setup{
+        open_mapping = [[<C-\>]],
+        direction = 'horizontal',
+        shade_terminals = true,
+        autochdir = true,
+      }
+      vim.keymap.set("t", [[<C-\>]], [[<C-\><C-n>]], { silent = true })
+      vim.keymap.set("n", "<leader>pt", ":TermSelect\n")
+      vim.keymap.set("n", "<leader>tn", ":ToggleTerm direction=horizontal name=")
+    end,
+    event = "VeryLazy"
   },
 
   -- All NvChad plugins are lazy-loaded by default
@@ -89,7 +124,15 @@ local plugins = {
       require("telescope").load_extension("live_grep_args")
     end
   },
-
+  {
+    "ryanmsnyder/toggleterm-manager.nvim",
+    dependencies = {
+      "akinsho/nvim-toggleterm.lua",
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim", -- only needed because it's a dependency of telescope
+    },
+    config = true,
+  },
   {
     'pwntester/octo.nvim',
     dependencies = {

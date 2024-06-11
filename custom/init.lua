@@ -23,6 +23,14 @@ autocmd(
   }
 )
 autocmd(
+  {"BufRead", "BufNew"},
+  {
+    pattern = {"*.authzed", "*.zed", "*.azd"},
+    command = "setf authzed",
+  }
+)
+
+autocmd(
   {"BufRead"},
   {
     pattern = {"*"},

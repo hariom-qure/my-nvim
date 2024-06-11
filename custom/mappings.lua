@@ -30,6 +30,7 @@ M.telescope = {
     ["<C-p>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<C-S-f>"] = { "<cmd> Telescope live_grep <CR>", "Find text" },
     ["<leader>fg"] = { ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>" },
+    ["<leader>ft"] = { ":Telescope toggleterm_manager<CR>" },
   }
 }
 
