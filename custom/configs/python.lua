@@ -34,8 +34,9 @@ M.setup_lsp = function(on_attach, capabilities)
         analysis = {
           diagnosticSeverityOverrides = {
             reportTypedDictNotRequiredAccess = "none"
-          }
-        }
+          },
+          extraPaths = {"/home/users/hariom.narang/work/workspace/services/qure_platform_api/hct_api"},
+        },
       }
     }
   }

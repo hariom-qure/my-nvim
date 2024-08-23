@@ -7,6 +7,7 @@ local M = {
   require("custom.configs.bash"),
   require("custom.configs.rust"),
   require("custom.configs.jsonnet"),
+  require("custom.configs.sql"),
 }
 
 return M

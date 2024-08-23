@@ -8,6 +8,8 @@ opt.exrc = true
 opt.termguicolors = true
 opt.colorcolumn = "89"
 
+vim.loader.enable()
+
 autocmd(
   {"BufWinEnter"},
   {
@@ -45,6 +47,27 @@ autocmd(
   }
 )
 vim.treesitter.language.register('markdown', 'octo')
+
+vim.o.clipboard = "unnamedplus"
+
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
+
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = paste,
+    ["*"] = paste,
+  },
+}
 
 -- vim.api.nvim_create_user_command("Ocrev", function()
 --   vim.cmd("Octo review start")
