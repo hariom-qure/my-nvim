@@ -11,6 +11,14 @@ opt.colorcolumn = "89"
 vim.loader.enable()
 
 autocmd(
+  {"BufRead"},
+  {
+    pattern = {"*.md", "README"},
+    command = "lua require('render-markdown').enable()"
+  }
+)
+
+autocmd(
   {"BufWinEnter"},
   {
     pattern = {"*"},

@@ -42,7 +42,7 @@ local plugins = {
           generate_requires_npm = false,
           requires_generate_from_grammar = false,
           -- optional entries:
-          branch = "main", -- default branch in case of git repo if different from master
+          branch = "main",    -- default branch in case of git repo if different from master
         },
         filetype = "authzed", -- if filetype does not match the parser name
       }
@@ -66,7 +66,7 @@ local plugins = {
   {
     "akinsho/toggleterm.nvim",
     config = function()
-      require("toggleterm").setup{
+      require("toggleterm").setup {
         open_mapping = [[<C-\>]],
         direction = 'horizontal',
         shade_terminals = true,
@@ -93,6 +93,15 @@ local plugins = {
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "<leader>tr0",
+        "<cmd>Trouble diagnostics toggle focus=false filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      }
+    }
   },
 
   -- dap
@@ -193,6 +202,28 @@ local plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+  },
+  {
+    'ruifm/gitlinker.nvim',
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    event = "VeryLazy",
+    config = function()
+      require "gitlinker".setup()
+    end
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require('gitsigns').setup()
+    end,
+    event="VeryLazy",
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    opts = {},
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
   },
 }
 
