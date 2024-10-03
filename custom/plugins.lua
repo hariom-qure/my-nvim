@@ -63,28 +63,8 @@ local plugins = {
     "NvChad/nvterm",
     enabled = false,
   },
-  {
-    "akinsho/toggleterm.nvim",
-    config = function()
-      require("toggleterm").setup {
-        open_mapping = [[<C-\>]],
-        direction = 'horizontal',
-        shade_terminals = true,
-        autochdir = true,
-      }
-      vim.keymap.set("t", [[<C-\>]], [[<C-\><C-n>]], { silent = true })
-      vim.keymap.set("n", "<leader>pt", ":TermSelect\n")
-      vim.keymap.set("n", "<leader>tn", ":ToggleTerm direction=horizontal name=")
-    end,
-    event = "VeryLazy"
-  },
-
   -- All NvChad plugins are lazy-loaded by default
   -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
-  {
-    "tpope/vim-fugitive",
-    event = "VeryLazy",
-  },
   {
     "tpope/vim-surround",
     event = "BufEnter *",
@@ -102,6 +82,15 @@ local plugins = {
         desc = "Buffer Diagnostics (Trouble)",
       }
     }
+  },
+
+  -- telescope
+  {
+    "nvim-telescope/telescope-live-grep-args.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+    end
   },
 
   -- dap
@@ -126,39 +115,9 @@ local plugins = {
       load_breakpoints_event = { "BufReadPost" }
     },
   },
-  {
-    "nvim-telescope/telescope-live-grep-args.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function()
-      require("telescope").load_extension("live_grep_args")
-    end
-  },
-  {
-    "ryanmsnyder/toggleterm-manager.nvim",
-    dependencies = {
-      "akinsho/nvim-toggleterm.lua",
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim", -- only needed because it's a dependency of telescope
-    },
-    config = true,
-  },
-  {
-    'pwntester/octo.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
-    lazy = false,
-    config = function()
-      require "octo".setup {
-        use_local_fs = true,
-        suppress_missing_scope = {
-          projects_v2 = true,
-        }
-      }
-    end
-  },
+
+  -- testing utilities plugins
+  { "nvim-neotest/nvim-nio" },
   {
     "vim-test/vim-test",
     event = "BufEnter *",
@@ -187,21 +146,19 @@ local plugins = {
       require("neotest").setup {
         adapters = {
           require("neotest-python"),
-          -- require("neotest-vim-test")({ allow_file_types = { "python" } }),
         }
       }
     end
   },
-  { "nvim-neotest/nvim-nio" },
+
+  -- git
   {
     "sindrets/diffview.nvim",
     lazy = false,
   },
   {
-    'nvim-pack/nvim-spectre',
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
+    "tpope/vim-fugitive",
+    event = "VeryLazy",
   },
   {
     'ruifm/gitlinker.nvim',
@@ -220,6 +177,26 @@ local plugins = {
     end,
     event="VeryLazy",
   },
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    lazy = false,
+    config = function()
+      require "octo".setup {
+        use_local_fs = true,
+        suppress_missing_scope = {
+          projects_v2 = true,
+        }
+      }
+    end
+  },
+
+
+  -- markdown
   {
     'MeanderingProgrammer/render-markdown.nvim',
     opts = {},
