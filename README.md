@@ -17,4 +17,9 @@ nvim
     - Going through this website will help you understand how to change config, and other dependencies like using `NerdFont`, which terminal to use, etc.
 - Each language is individually configured in `langs/` module
     - The simplest example is `langs/json.lua`
+    - Supported languages right now
+        - shell
+        - lua
+        - python
+        - json
 - There are many additional plugins and features added on top of NvChad provided plugins, take a look at `plugins` directory
