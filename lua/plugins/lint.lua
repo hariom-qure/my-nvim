@@ -3,6 +3,7 @@ return {
     "mfussenegger/nvim-lint",
     config = function()
       local langs = require "langs"
+      require("lint").linters_by_ft = {}
       for i, lang in ipairs(langs) do
         if lang.lint ~= nil then
           lang.lint()

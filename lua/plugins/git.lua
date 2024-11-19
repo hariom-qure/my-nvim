@@ -2,6 +2,7 @@ return {
   -- git
   {
     "sindrets/diffview.nvim",
+    event = "VeryLazy",
   },
   {
     "tpope/vim-fugitive",
